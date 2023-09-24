@@ -1,0 +1,10 @@
+package edu.my.tunes.exceptions;
+
+/**
+ * This exception is thrown when the given user is not found.
+ */
+public class UserNotFoundException extends RuntimeException {
+  public UserNotFoundException(String message) {
+    super(message);
+  }
+}
