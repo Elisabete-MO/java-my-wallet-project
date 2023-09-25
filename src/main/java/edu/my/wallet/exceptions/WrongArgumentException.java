@@ -1,4 +1,4 @@
-package edu.my.tunes.exceptions;
+package edu.my.wallet.exceptions;
 
 /**
  * Exception to be thrown when an invalid argument is passed to a method.

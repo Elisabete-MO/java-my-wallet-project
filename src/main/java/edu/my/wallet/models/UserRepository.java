@@ -1,6 +1,6 @@
-package edu.my.tunes.models;
+package edu.my.wallet.models;
 
-import edu.my.tunes.models.entities.User;
+import edu.my.wallet.models.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

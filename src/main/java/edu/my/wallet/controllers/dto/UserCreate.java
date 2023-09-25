@@ -1,6 +1,6 @@
-package edu.my.tunes.controllers.dto;
+package edu.my.wallet.controllers.dto;
 
-import edu.my.tunes.models.entities.User;
+import edu.my.wallet.models.entities.User;
 
 /** User DTO.
  *

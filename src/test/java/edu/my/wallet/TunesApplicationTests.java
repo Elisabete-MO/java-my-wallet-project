@@ -1,4 +1,4 @@
-package edu.my.tunes;
+package edu.my.wallet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

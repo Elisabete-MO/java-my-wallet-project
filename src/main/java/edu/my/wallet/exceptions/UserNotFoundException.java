@@ -1,4 +1,4 @@
-package edu.my.tunes.exceptions;
+package edu.my.wallet.exceptions;
 
 /**
  * This exception is thrown when the given user is not found.

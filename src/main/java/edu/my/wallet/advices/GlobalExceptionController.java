@@ -1,9 +1,8 @@
-package edu.my.tunes.advices;
+package edu.my.wallet.advices;
 
-import edu.my.tunes.exceptions.AlbumNotFoundException;
-import edu.my.tunes.exceptions.MusicNotFoundException;
-import edu.my.tunes.exceptions.UserNotFoundException;
-import edu.my.tunes.exceptions.WrongArgumentException;
+import edu.my.wallet.exceptions.CurrencyNotFoundException;
+import edu.my.wallet.exceptions.UserNotFoundException;
+import edu.my.wallet.exceptions.WrongArgumentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,9 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionController {
 
   @ExceptionHandler({
-      MusicNotFoundException.class,
+      CurrencyNotFoundException.class,
       UserNotFoundException.class,
-      AlbumNotFoundException.class
   })
   public ResponseEntity<String> handleNotFoundException(RuntimeException e) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

@@ -1,10 +1,9 @@
-package edu.my.tunes.services.interfaces;
+package edu.my.wallet.services.interfaces;
 
-import edu.my.tunes.controllers.dto.UserDto;
-import edu.my.tunes.models.entities.User;
+import edu.my.wallet.controllers.dto.UserDto;
+import edu.my.wallet.models.entities.User;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * UserService interface for User entity operations that implements the CRUD

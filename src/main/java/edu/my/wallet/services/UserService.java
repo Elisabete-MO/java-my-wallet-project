@@ -1,10 +1,10 @@
-package edu.my.tunes.services;
+package edu.my.wallet.services;
 
-import edu.my.tunes.controllers.dto.UserDto;
-import edu.my.tunes.exceptions.UserNotFoundException;
-import edu.my.tunes.models.UserRepository;
-import edu.my.tunes.models.entities.User;
-import edu.my.tunes.services.interfaces.UserServiceInterface;
+import edu.my.wallet.controllers.dto.UserDto;
+import edu.my.wallet.exceptions.UserNotFoundException;
+import edu.my.wallet.models.UserRepository;
+import edu.my.wallet.models.entities.User;
+import edu.my.wallet.services.interfaces.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

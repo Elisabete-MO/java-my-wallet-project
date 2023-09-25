@@ -1,4 +1,4 @@
-package edu.my.tunes.models.entities;
+package edu.my.wallet.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

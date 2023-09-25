@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.my</groupId>
-	<artifactId>tunes</artifactId>
+	<artifactId>wallet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>tunes</name>
-	<description>A music player app</description>
+	<name>wallet</name>
+	<description>A virtual wallet</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
@@ -40,6 +40,11 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
