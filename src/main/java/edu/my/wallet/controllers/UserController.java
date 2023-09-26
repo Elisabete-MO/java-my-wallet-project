@@ -3,16 +3,17 @@ package edu.my.wallet.controllers;
 import edu.my.wallet.controllers.dto.UserCreate;
 import edu.my.wallet.controllers.dto.UserDto;
 import edu.my.wallet.services.UserService;
+
+import java.net.URI;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  * this {@link RestController} represents our <b>Facade</b>, because it
- * abstracts all complexity of integrations (H2 Database and ViaCEP API) in a
+ * abstracts all complexity of integrations (H2 Database and awesome API) in a
  * simple and cohesive interface (REST API).
  */
 @RestController
@@ -31,6 +32,11 @@ public class UserController {
     return ResponseEntity.ok(userService.findByUsername(username));
   }
 
+  /** This method is responsible for saving a new user in the database.
+   *
+   * @param user {@link UserCreate} object
+   * @return {@link ResponseEntity} with {@link UserDto} object
+   */
   @PostMapping()
   public ResponseEntity<UserDto> save(@RequestBody UserCreate user) {
     userService.save(user.toUser());
@@ -39,7 +45,11 @@ public class UserController {
         user.toUser().getEmail(),
         user.toUser().getImageUrl()
     );
-    return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
+    URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+        .path("/{id}")
+        .buildAndExpand(user.toUser().getId())
+        .toUri();
+    return ResponseEntity.created(location).body(userDto);
   }
 
   @PutMapping()

@@ -5,11 +5,11 @@ import edu.my.wallet.exceptions.UserNotFoundException;
 import edu.my.wallet.models.UserRepository;
 import edu.my.wallet.models.entities.User;
 import edu.my.wallet.services.interfaces.UserServiceInterface;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Implementation of the <b>Strategy</b> {@link UserServiceInterface}, which
@@ -35,17 +35,15 @@ public class UserService implements UserServiceInterface {
 
   @Override
   public UserDto findByUsername(String username) {
-    Optional<User> userOptional = userRepository.findByUsername(username);
-    if (userOptional.isPresent()) {
-      User user = userOptional.get();
-      return new UserDto(
-          user.getUsername(),
-          user.getEmail(),
-          user.getImageUrl()
-      );
-    } else {
-      throw new UserNotFoundException("Usuário não encontrado!");
-    }
+    User user = userRepository.findByUsername(username)
+        .orElseThrow(() -> new UserNotFoundException(
+            "Usuário não encontrado!"));
+
+    return new UserDto(
+        user.getUsername(),
+        user.getEmail(),
+        user.getImageUrl()
+    );
   }
 
   @Override
@@ -55,21 +53,24 @@ public class UserService implements UserServiceInterface {
 
   @Override
   public void update(UserDto user) {
-    Optional<User> oldData = userRepository.findByUsername(user.getUsername());
+    Optional<User> oldData =
+        Optional.ofNullable(userRepository.findByUsername(user.getUsername())
+            .orElseThrow(() -> new UserNotFoundException("Usuário não "
+                + "encontrado!")));
     if (oldData.isPresent()) {
       User oldUser = oldData.get();
       oldUser.setEmail(user.getEmail());
       oldUser.setImageUrl(user.getImageUrl());
       oldUser.setPassword(oldData.get().getPassword());
       userRepository.save(oldUser);
-    } else {
-      throw new UserNotFoundException("Usuário não encontrado!");
     }
   }
 
   @Override
   public void delete(String username) {
-    Optional<User> user = userRepository.findByUsername(username);
+    Optional<User> user =
+        Optional.ofNullable(userRepository.findByUsername(username)
+            .orElseThrow(NoSuchElementException::new));
     user.ifPresent(userRepository::delete);
   }
 }

@@ -3,11 +3,9 @@ package edu.my.wallet.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import edu.my.wallet.models.entities.Currency;
-import edu.my.wallet.models.entities.CurrencyResponse;
-import edu.my.wallet.services.interfaces.CurrencyApiService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
+import edu.my.wallet.models.entities.Currency;
+import edu.my.wallet.services.interfaces.CurrencyApiService;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller for the Currency entity.
+ * Controller for the Currency entity endpoints of the application API REST
+ * for the Wallet project.
  */
 @RestController
 @RequestMapping(value = "/wallet")
@@ -29,36 +28,45 @@ public class CurrencyController {
   @Autowired
   private CurrencyApiService currencyApiService;
 
-@GetMapping("/")
-  public ResponseEntity<List<Currency>> getCurrencies() {
+  /**  Get all currencies available in the AwesomeAPI.
+   *
+   * @return a list of all currencies available in the AwesomeAPI.
+   */
+  @GetMapping("/")
+    public ResponseEntity<List<Currency>> getCurrencies() {
     ResponseEntity<String> response = currencyApiService.getCurrencies();
 
-  if (response.getStatusCode() == HttpStatus.OK) {
-    ObjectMapper objectMapper = new ObjectMapper();
-    try {
-      JsonNode root = objectMapper.readTree(response.getBody());
-      List<Currency> currencyList = new ArrayList<>();
+    if (response.getStatusCode() == HttpStatus.OK) {
+      ObjectMapper objectMapper = new ObjectMapper();
+      try {
+        JsonNode root = objectMapper.readTree(response.getBody());
+        List<Currency> currencyList = new ArrayList<>();
 
-      Iterator<Map.Entry<String, JsonNode>> fields = root.fields();
-      while (fields.hasNext()) {
-        Map.Entry<String, JsonNode> entry = fields.next();
-        String currencyCode = entry.getKey();
-        JsonNode currencyNode = entry.getValue();
+        Iterator<Map.Entry<String, JsonNode>> fields = root.fields();
+        while (fields.hasNext()) {
+          Map.Entry<String, JsonNode> entry = fields.next();
+          String currencyCode = entry.getKey();
+          JsonNode currencyNode = entry.getValue();
 
-        Currency currency = objectMapper.treeToValue(currencyNode, Currency.class);
-        currency.setCode(currencyCode);
-        currencyList.add(currency);
+          Currency currency = objectMapper.treeToValue(currencyNode, Currency.class);
+          currency.setCode(currencyCode);
+          currencyList.add(currency);
+        }
+        return ResponseEntity.ok(currencyList);
+      } catch (JsonProcessingException e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
       }
-      return ResponseEntity.ok(currencyList);
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    } else {
+      return ResponseEntity.status(response.getStatusCode()).build();
     }
-  } else {
-    return ResponseEntity.status(response.getStatusCode()).build();
   }
-}
 
+  /** Get a currency with the given code.
+   *
+   * @param currency the currency code to be searched.
+   * @return the currency with the given code.
+   */
   @GetMapping("/{currency}-BRL")
   public ResponseEntity<Currency> getCurrency(@PathVariable("currency") String currency) {
     ResponseEntity<String> response = currencyApiService.getOneCurrency(currency);

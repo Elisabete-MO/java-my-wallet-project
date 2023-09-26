@@ -2,7 +2,6 @@ package edu.my.wallet.services.interfaces;
 
 import edu.my.wallet.controllers.dto.UserDto;
 import edu.my.wallet.models.entities.User;
-
 import java.util.List;
 
 /**

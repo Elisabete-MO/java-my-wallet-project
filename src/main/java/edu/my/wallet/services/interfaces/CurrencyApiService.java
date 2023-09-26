@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+/**
+ * CurrencyApiService interface for FeignClient to consume the AwesomeAPI.
+ */
 @FeignClient(name = "awesomeapi", url = "https://economia.awesomeapi.com.br/json")
 public interface CurrencyApiService {
 

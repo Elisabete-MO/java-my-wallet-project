@@ -3,6 +3,9 @@ package edu.my.wallet.models.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
+/**
+ * CurrencyResponse entity.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CurrencyResponse {
 
