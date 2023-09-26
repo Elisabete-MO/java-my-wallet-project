@@ -19,10 +19,65 @@ requisitos:
         <strong> :coin: Requisitos </strong>
     </summary>
 
-- [ ] Desenhar diagrama de classes da aplicação com Mermaid; <br>
+- [x] Desenhar diagrama de classes da aplicação com Mermaid; <br>
+
+  <details>
+
+  ```mermaid
+  classDiagram
+   class Currency {
+     +code: string
+     +name: string
+     +ask: string
+     +timestamp: string
+     +create_date: string
+   }
+
+  	class User {
+  		+id: number
+  		+username: string
+  		+email: string
+  		-password: string
+  		-image_url: string
+  	}
+  	
+  	class Expense {
+  		+create_date: string
+  		+description: string
+  		+category: string[]
+  		+value: number 
+  		+payment_type: string[]
+  		+currency: string
+  		+user_id: number
+  	}
+  	
+  	class Category {
+  		<<enumeration>>
+  		food
+  		lazer
+  		work
+  		transport
+  		health
+  	}
+
+  	class PaymentType {
+  		<<enumeration>>
+  		money
+  		credit
+  		debit
+  		PIX
+  	}
+
+  User "1" *-- "n" Expense
+  Expense "1" *-- "1" Currency
+  Expense "1" *-- "1" PaymentType
+  Expense "1" *-- "1" Category
+  ```
+
 - [x] Desenvolver a API em Java, Spring e Feign; <br>
 - [x] Documentar a API com o Swagger; <br>
 - [ ] Estruturar as classes no banco de dados*; <br>
+  - [x] Classe User; <br>
   - [x] Classe User; <br>
   - [ ] Classe Expense; <br>
   - [ ] Criar as relações entre as tabelas; <br>
@@ -35,7 +90,10 @@ requisitos:
 - [ ] Desenvolver o front-end em Angular; <br>
 - [ ] Fazer o deploy da aplicação no Railway.
 
-* H2 para desenvolvimento e Postgres para produção.
+* H2 para desenvolvimento e Postgres para produção. 
+<!-- java -jar your-application.jar --SPRING_PROFILES_ACTIVE=prod
+@Column(precision = 10, scale = 2) -->
+</details>
 </details>
 
 Todos esses conhecimentos foram adquiridos e/ou aprimorados durante o Santander 
